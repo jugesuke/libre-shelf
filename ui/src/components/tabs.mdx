@@ -1,0 +1,38 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as TabsStories from "./tabs.stories";
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+タブは、同じ画面の中で、内容のまとまりを切り替えるコンポーネントです。イベント終了の画面の「在庫管理」「レジ金」「委託」などに使います。
+
+<Canvas of={TabsStories.Default} />
+
+## 用途
+
+- 1 つの画面の中に、別々に見たい内容のまとまりが並ぶときに使う。
+- 同じ場所の入力方法を切り替えるだけのときは、[セグメントコントロール](?path=/docs/ui-segmentedcontrol--docs)を使う。
+
+## デザイン
+
+- 選択中の項目は太字の文字と、プライマリカラー（黄は黒）の 3px の下線で示す。
+- 選択していない項目は補足のテキストの色にする。
+- 高さは 36px。タブの並びの下に枠線を引く。
+
+## アクセシビリティ
+
+- 並び全体に `role="tablist"`、各タブに `role="tab"` を付け、選択中のタブに `aria-selected="true"` を付ける。
+
+## 実装
+
+- `options`、`value`、`onChange` を渡す。[セグメントコントロール](?path=/docs/ui-segmentedcontrol--docs)と同じ形
+
+### 寸法と色
+
+- 14px の文字、左右の内側の余白は 12px。
+- 選択中の項目は `--foreground` の太字と、3px の `--ring` の下線。ほかの項目は `--muted-foreground` の標準の文字。
+- タブの並びの下に、1px の `--border` の線を引く。
+- ホバー時は `--muted` の背景を敷く。
+
+<Controls of={TabsStories.Default} />

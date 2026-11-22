@@ -1,0 +1,33 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="開発/スタイルの指定" />
+
+# スタイルの指定
+
+スタイルは Tailwind CSS のクラスで指定します。基本デザインの値は、次のクラスで指定します。色は[色の変数](?path=/docs/開発-色の変数--docs)のページを見てください。
+
+## タイポグラフィ
+
+フォントは Google Fonts から読み込み、Tailwind の `font-sans` に設定しています。読み込みは、アプリは `index.html`、Storybook は `.storybook/preview-head.html` に書いています。ページの文字は `font-sans` で表示されるので、コンポーネントでフォントを指定する必要はありません。
+
+
+| テキストスタイル | クラス |
+|---|---|
+| 見出し（大） | `text-2xl font-bold` |
+| 見出し（中） | `text-lg font-bold` |
+| 見出し（小） | `text-base font-bold` |
+| 本文 | `text-sm` |
+| ラベル | `text-sm font-bold` |
+| 補足 | `text-xs` |
+
+## 余白
+
+余白のクラスの数字は、`1`、`2`、`3`、`4`、`6`、`8`（4px、8px、12px、16px、24px、32px）を使います（`gap-2`、`p-4` など）。
+
+## 角丸
+
+角丸は `rounded-md`（6px）を使います。`--radius` を 6px にしているので、`rounded-sm` から `rounded-xl` もすべて 6px になります。バッジと「必須」ラベルは `rounded-full` を使います。
+
+## ページの幅
+
+ページは `Page` コンポーネントで包み、`width` に `wide`（1200px）か `narrow`（672px）を指定します。ページの外側の余白も `Page` が付けます。

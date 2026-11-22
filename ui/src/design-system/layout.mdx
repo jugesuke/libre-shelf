@@ -1,0 +1,44 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="基本デザイン/レイアウト" />
+
+# レイアウト
+
+## ページの幅
+
+ページの幅は、広いと狭いの 2 種類から選びます。どちらも画面の中央に置きます。ページの見出しと、その右に置く操作も、この幅の中に置きます。
+
+| 幅 | 最大幅 | 使う画面 |
+|---|---|---|
+| 広い | 1200px | 一覧やテーブルが中心の画面（商品管理、発注管理、在庫管理、在庫移動台帳、即売会の一覧、レジ、結果） |
+| 狭い | 672px | フォームが中心の画面（即売会の前日準備、当日開始処理、当日終了処理、イベント終了） |
+
+<div className="not-prose flex flex-col gap-3">
+  {[["広い", 1200], ["狭い", 672]].map(([name, width]) => (
+    <div key={name} className="flex h-10 overflow-hidden rounded-md border border-border bg-surface-muted text-xs">
+      <div className="shrink-0 bg-foreground" style={{ width: `${(224 / 1920) * 100}%` }} />
+      <div className="flex flex-1 justify-center">
+        <div className="flex h-full items-center justify-center bg-background" style={{ width: `${(width / 1696) * 100}%` }}>
+          {name}（{width}px）
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+1920px の画面を縮小した図です。左の濃い部分はメニュー（224px）、白い部分がページです。
+
+- 最大幅は、ページの外側の余白を含んだ幅。
+- ページの中身全体を、さらに狭い幅に絞らない。
+- 画面幅が 768px 未満のときは、メニューを閉じて、ページを画面幅いっぱいに表示する。
+
+## ブレークポイント
+
+画面の幅で表示を切り替える境目は、次の 2 つです。
+
+| 境目 | Tailwind | 境目より狭いとき | 境目以上のとき |
+|---|---|---|---|
+| 768px | `md` | メニューは本文の上に重ねて開く（[Frame](?path=/docs/ui-frame--docs)）。ページの外側の余白は 12px。ページの見出しの右の操作は、見出しの下に回す | メニューは本文を右へ押し出して開く。ページの外側の余白は 24px |
+| 640px | `sm` | ダイアログの下部のボタンは縦に並べ、主要な操作を上にする。カードのヘッダーの操作は 2 行目に回す | ダイアログの下部のボタンは横幅いっぱいに等分して並べる |
+
+ほかの幅で表示を切り替えないでください。

@@ -1,0 +1,41 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="参考文献" />
+
+# 参考文献
+
+このデザインシステムのルールを決めるときに参考にした資料です。ルールごとに、どの資料を参考にしたかを示します。
+
+## 基本デザイン
+
+| ルール | 参考にした資料 |
+|---|---|
+| [タイポグラフィ](?path=/docs/基本デザイン-タイポグラフィ--docs): 大きさと太さを、見出し、本文、ラベル、補足のテキストスタイルにまとめる。部品が持つテキストスタイルは部品のものを使う。テーブルの中の文字は本文と同じにする | SmartHR Design System「[タイポグラフィ](https://smarthr.design/products/design-tokens/typography/)」、GitHub「[Primer: Typography](https://primer.style/product/primitives/typography/)」、IBM「[Carbon: Type sets](https://carbondesignsystem.com/elements/typography/type-sets/)」 |
+
+## デザインパターン
+
+| ルール | 参考にした資料 |
+|---|---|
+| [フィードバック](?path=/docs/デザインパターン-フィードバック--docs): 入力の検証のエラーを入力欄の下に出す、処理の失敗を操作したボタンの近くに出す | SmartHR Design System「[フィードバック](https://smarthr.design/products/design-patterns/feedback/)」 |
+| [確認](?path=/docs/デザインパターン-確認--docs): 見出し、本文、対象、注意事項、ボタンの構成 | SmartHR Design System「[削除ダイアログ](https://smarthr.design/products/design-patterns/delete-dialog/)」 |
+| [確認](?path=/docs/デザインパターン-確認--docs): 最初のフォーカスを「やめる」に置く | W3C「[WAI-ARIA Authoring Practices Guide: Dialog (Modal) Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)」 |
+| [ダイアログ](?path=/docs/ui-dialog--docs): 種類ごとの最初のフォーカスの置き場所 | W3C「[WAI-ARIA Authoring Practices Guide: Dialog (Modal) Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)」 |
+
+## 文言
+
+| ルール | 参考にした資料 |
+|---|---|
+| [文言と書式](?path=/docs/基本デザイン-文言と書式--docs): 句点を、文には付け、文でないものには付けない | SmartHR Design System「[記号（括弧、句点、スペースなど）の表記](https://smarthr.design/products/contents/idiomatic-usage/symbol/)」 |
+
+## アクセシビリティ
+
+| ルール | 参考にした資料 |
+|---|---|
+| [原則](?path=/docs/原則--docs)のコントラストの基準、[色](?path=/docs/基本デザイン-色--docs)のコントラスト、[ターゲットサイズ](?path=/docs/基本デザイン-ターゲットサイズ--docs) | W3C「[Web Content Accessibility Guidelines (WCAG) 2.2](https://www.w3.org/TR/WCAG22/)」 |
+
+## 開発
+
+| ルール | 参考にした資料 |
+|---|---|
+| コンポーネントの書き方（1 コンポーネント 1 ファイル、cva で種類を切り替える、`cn` で上書きする）、[色の変数](?path=/docs/開発-色の変数--docs)の名前 | [shadcn/ui](https://ui.shadcn.com/docs/theming) |
+| Storybook の story の並び（Default、種類と状態ごと、All） | pixiv「[charcoal](https://pixiv.github.io/charcoal/docs/)」 |

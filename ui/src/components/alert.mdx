@@ -1,0 +1,58 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as AlertStories from "./alert.stories";
+import * as FloatingAlertStories from "./floating-alert.stories";
+
+<Meta of={AlertStories} />
+
+# Alert
+
+アラートは、操作の結果や、注意してほしいことを伝えるコンポーネントです。
+
+<Canvas of={AlertStories.All} />
+
+## 種類と使い分け
+
+| 種類 | 用途 | 例 |
+|---|---|---|
+| destructive | 失敗やエラー | 保存できませんでした |
+| success | 操作がうまくいったこと | 保存しました |
+| warning | 注意してほしいこと | まだ在庫管理に反映していません |
+| info | 次の操作の案内 | 商品を選択してください |
+
+色は[セマンティックカラー](?path=/docs/基本デザイン-色--docs)を薄くした背景色に、同じセマンティックカラーの文字です。destructive の文字は、コントラストを確保するために、より濃い色にします。
+
+## アクセシビリティ
+
+- destructive と warning は、表示されるとすぐにスクリーンリーダーが読み上げる（`role="alert"`）。
+- success と info はほかの読み上げを妨げない（`role="status"`）。
+- 色だけで種類を伝えないよう、文言でも何が起きたかが分かるように書く。
+
+## チェックリスト
+
+- [ ] 失敗には destructive、成功には success を使っている。
+- [ ] 文言だけで、何が起きたか、次に何をすればよいかが分かる。
+
+## 実装
+
+- 種類は `variant` で指定する。省略できない。
+- `role` は種類から決まるので、使う側では指定しない。
+
+### 浮かせて重ねるアラート（`FloatingAlert`）
+
+処理の失敗を、ボタンの横に置けないときに、行のすぐ下に浮かせて重ねて出す部品。いつ使うかは[フィードバック](?path=/docs/デザインパターン-フィードバック--docs)の「処理の失敗」にある。
+
+- `anchor` に行の要素の ref、`target` に三角を向ける要素（操作したボタン、ボタンがないときは入力欄）の ref、`message` に文言、`open` に出すか、`onClose` に閉じるときに呼ぶ関数を渡す。
+- 幅は `anchor` と同じにし、左右の端を `anchor` の端にそろえる。上の縁から `target` の左右の中央へ向けて三角（12px 四方を 45 度回したもの、アラートの背景と同じ色）を付ける。`anchor` の下端と三角の先の間を 4px にする（アラートの本体の上の縁は、`anchor` の下端から 10px）。`anchor` か `target` の ref が空のときは何も表示しない。
+- destructive のアラートに、影（`shadow-md`）と閉じるボタン（icon のボタン、`X`、`aria-label` は「閉じる」）を付ける。閉じるボタンか Esc キーで `onClose` を呼ぶ。
+- `body` の直下に描き、カードやページのはみ出しを隠す指定で切れないようにする。画面をスクロールしたり幅が変わったりしたら、`anchor` に合わせて置き直す。
+- 読み上げは、中の destructive のアラートの `role="alert"` で行う。外側には付けない。
+- 三角と閉じるボタンの付いたアラートの本体は `FloatingAlertBody` として分けてあり、ダイアログの失敗のアラートも同じものを使う。
+
+<Canvas of={FloatingAlertStories.Default} />
+
+### 寸法と色
+
+- 14px の文字。内側の余白は上下 8px、左右 12px。
+- 背景は `--destructive-muted`、`--success-muted`、`--warning-muted`、`--info-muted`。文字は `--destructive-muted-foreground`、`--success`、`--warning`、`--info`。線や記号は付けない。
+
+<Controls of={AlertStories.Default} />

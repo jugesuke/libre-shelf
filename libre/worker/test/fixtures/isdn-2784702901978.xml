@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<isdn xmlns="https://isdn.jp/schemas/0.1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://isdn.jp/schemas/0.1 https://isdn.jp/schemas/0.1/isdn.xsd">
+<item key="2784702901978">
+<disp-isdn>ISDN278-4-702901-97-8</disp-isdn>
+<region>日本</region>
+<class>オリジナル</class>
+<type>同人誌</type>
+<rating_gender>区別なし</rating_gender>
+<rating_age>一般</rating_age>
+<product-name>みほん同人誌</product-name>
+<product-yomi>みほんどうじんし</product-yomi>
+<publisher-code>14142139</publisher-code>
+<publisher-name>見本サークル</publisher-name>
+<publisher-yomi>みほんさーくる</publisher-yomi>
+<issue-date>2008-03-12</issue-date>
+<genre-code>106</genre-code>
+<genre-name>評論・情報</genre-name>
+<genre-user></genre-user>
+<c-code>C3055</c-code>
+<author>専門</author>
+<shape>単行本</shape>
+<contents>電子通信</contents>
+<price>100</price>
+<price-unit>JPY</price-unit>
+<barcode2>2923055001007</barcode2>
+<product-comment></product-comment>
+<product-style></product-style>
+<product-size></product-size>
+<product-capacity></product-capacity>
+<product-capacity-unit></product-capacity-unit>
+<sample-image-uri>https://isdn.jp/images/thumbs/2784702901978.png</sample-image-uri>
+<useroption>
+<property>執筆者</property>
+<value>みほん執筆者1</value>
+</useroption><useroption>
+<property>執筆者</property>
+<value>みほん執筆者2</value>
+</useroption><useroption>
+<property>執筆者</property>
+<value>みほん執筆者3</value>
+</useroption><useroption>
+<property>執筆者</property>
+<value>みほん執筆者4</value>
+</useroption><useroption>
+<property>執筆者</property>
+<value>みほん執筆者5</value>
+</useroption><useroption>
+<property>執筆者</property>
+<value>みほん執筆者6</value>
+</useroption>
+<external-link>
+<title>国際標準同人誌番号</title>
+<uri>http://isdn.jp/</uri>
+</external-link><external-link>
+<title>mixiコミュニティ</title>
+<uri>http://mixi.jp/view_community.pl?id=3188828</uri>
+</external-link>
+</item>
+</isdn>

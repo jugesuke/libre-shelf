@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@libre/*": ["./src/*"],
+      "@libre-shared/*": ["./shared/*"],
+      "@libre-worker/*": ["./worker/*"]
+    }
+  }
+}

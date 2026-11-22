@@ -1,0 +1,121 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import { Button } from "./button";
+import * as ButtonStories from "./button.stories";
+
+<Meta of={ButtonStories} />
+
+# Button
+
+ボタンは、クリックすると、その場で操作を実行するコンポーネントです。保存、追加、削除、ダイアログを開くなどに使います。
+
+<Canvas of={ButtonStories.All} />
+
+## 用途
+
+- クリックすると、データが変わる、ダイアログが開くなど、何かが起きる操作に使う。
+- 選択肢を切り替えるだけのものには使わない。[セグメントコントロール](?path=/docs/ui-segmentedcontrol--docs)か[タブ](?path=/docs/ui-tabs--docs)を使う。
+
+## 種類と使い分け
+
+| 種類 | デザイン | 用途 |
+|---|---|---|
+| primary | プライマリカラーで塗りつぶす | その画面でいちばん重要な操作（登録、保存して次へなど）。1 つの画面（ダイアログを含む）に 1 つまで |
+| secondary | グレーの背景 | primary 以外の操作（キャンセル、編集、追加、カメラなど） |
+| destructive | 白い背景に destructive の枠線と文字 | 削除など、取り消せない操作 |
+| text | 下線付きのグレーの文字だけ | 使用頻度の低い操作（セッションを破棄するなど） |
+| icon | アイコンだけ | 閉じる、取り除くなど、アイコンだけで意味が伝わる操作。閉じると取り除くは「×」のアイコン |
+
+primary が 1 つの画面に 2 つあると、どちらが重要か分からなくなるので、2 つ目からは secondary にします。
+
+### destructive のボタン
+
+destructive のボタンは塗りつぶさず、白い背景に destructive の枠線と文字にしています。即売会の色と destructive はどちらも赤に近く、塗りつぶすと primary のボタンと見分けにくくなるためです。
+
+<div className="not-prose mt-3 flex flex-wrap items-center gap-4 rounded-md border border-border p-6" style={{ "--primary": "#e9004a", "--primary-foreground": "#ffffff", "--ring": "#e9004a" }}>
+  <Button variant="destructive">削除</Button>
+  <Button variant="primary">保存</Button>
+</div>
+
+## 配置
+
+- ボタンの高さは種類によらず入力欄と同じ 36px（icon は 32px 四方）。入力欄の隣や、ほかの種類のボタンと同じ行に並べても、高さがそろう。
+- ダイアログの下部では、横幅いっぱいに等分して並べ、左に「キャンセル」などの secondary、右に主要な操作を置く。画面幅が 640px 未満のときは縦に並べ、主要な操作を上にする。
+- ページやカードのヘッダーの右には、そのページやカードに対する操作を置く。
+
+### なぜ primary も同じ高さなのか
+
+重要度を大きさで示すと、ほかのボタンや入力欄と同じ行に並べたときに高さがそろわず、配置できる場所が限られます。そのため、重要度は塗りつぶしの有無だけで示し、高さはそろえています。
+
+## 状態
+
+| 状態 | デザイン |
+|---|---|
+| ホバー時、押下時 | 塗りつぶしたボタンは少し暗くなる。塗りつぶしていないボタンは薄いグレーの背景色が付く（destructive は薄い赤） |
+| フォーカス時 | プライマリカラー（黄は黒）の 2px のフォーカスリング |
+| 無効状態 | 背景色を薄くし、破線の枠線を付ける。ホバーしても押しても変わらない |
+| 処理中 | ラベルを隠してローダーに置き換える。幅は変えない。押せない |
+
+<Canvas of={ButtonStories.Disabled} />
+
+### 処理中
+
+ボタンを押したあと、処理が終わるまでの間は、ボタンの幅を変えずに、ラベルを隠してローダーに置き換えます。押した直後から出します。見本は[読み込み中と処理中](?path=/docs/デザインパターン-読み込み中と処理中--docs)にあります。
+
+| 種類 | 背景 | 枠線 | ローダー |
+|---|---|---|---|
+| primary | プライマリカラーを白に 15% 混ぜた色（無効状態と同じ） | `--ring` の破線 | `--ring`（黄は黒） |
+| secondary | `--muted`（gray-100） | `--muted-foreground` の破線 | `--muted-foreground` |
+| destructive | 白（無効状態と同じ） | `--destructive` の破線 | `--destructive` |
+
+- ローダーは 20px、線の太さ 2.5。
+- secondary の処理中の背景は、無効状態の背景（`--surface-muted`、gray-50）とは違う。
+- text と icon のボタンは、処理中にしない。
+
+### なぜ無効状態のボタンは文字が読みにくいのか
+
+無効状態のボタンは背景色を残したまま薄くしています。どの種類のボタンが無効なのかは背景色で分かり、文字が読みにくいこと自体が、いまは押せないことを示します。
+
+## アクセシビリティ
+
+- icon のボタンにはスクリーンリーダーで何のボタンか分かる名前（「閉じる」など）を付ける。
+- ターゲットサイズは 36px（icon は 32px）で、基本デザインの 32px 以上を満たす。
+- フォーカスリングを消さない。
+
+## チェックリスト
+
+- [ ] 1 つの画面（ダイアログを含む）に primary が 2 つ以上ない。
+- [ ] 取り消せない操作は destructive にしている。
+- [ ] icon のボタンに、スクリーンリーダー用の名前がある。
+- [ ] 同じ行に並べたボタンと入力欄の高さがそろっている。
+
+## 実装
+
+- 種類は `variant` で指定する。省略すると `secondary`。`type` の既定は `button`。
+- icon は `size="icon"` と `aria-label` を指定し、中に lucide-react のアイコン（閉じると取り除くは `X`）を入れる。`variant` によらず、色と状態の見た目は text のボタンと同じにする（下線と余白は付けない）。
+- 処理中は `loading` を指定する。`aria-busy` を付け、押せないようにする。押せないとは、クリックでもキーボードでも、`onClick` が呼ばれず、フォームも送信されないこと。フォーカスは外さないので、`disabled` 属性は使わない。
+
+### 寸法と色
+
+| 種類 | 文字 | 左右の内側の余白 | 枠線 |
+|---|---|---|---|
+| primary | 14px の太字、`--primary-foreground` | 12px | 1px の透明な枠 |
+| secondary | 14px の太字、`--foreground` | 12px | 1px の透明な枠 |
+| destructive | 14px の太字、`--destructive` | 12px | 1px の `--destructive` |
+| text | 14px の標準、`--muted-foreground`、下線 | 8px | なし |
+| icon | 記号は 20px 四方、`--muted-foreground`。下線なし | 0（32px 四方） | なし |
+
+- primary と secondary に透明な枠を持たせるのは、destructive と並べたときに大きさをそろえるため
+- text の下線の太さと位置は、ブラウザの既定のまま。
+- ホバー時は、塗ったボタン（primary、secondary）が `brightness(0.92)`、押している間は `brightness(0.85)`。塗らないボタン（text、icon）は `--muted`、destructive は `--destructive-muted` の背景を敷く。
+- フォーカス時は、2px の `--ring` のリングを、外側に 2px 離して出す（`:focus-visible`）。
+
+| 種類 | 無効状態の背景 | 無効状態の枠線 | 無効状態の文字 |
+|---|---|---|---|
+| primary | `--primary` を白に 15% 混ぜた色 | `--primary` の破線 | `--primary-foreground` のまま |
+| secondary | `--surface-muted` | `--muted-foreground` の破線 | `--disabled-foreground` |
+| destructive | 白 | `--destructive` の破線 | `--destructive` を白に 40% 混ぜた色 |
+| text、icon | なし | なし | `--disabled-foreground`（text の下線は残す） |
+
+- アイコンに「×」「▸」などの文字を使わない。文字は書体によって位置が違い、ボタンの中央からずれるため。
+
+<Controls of={ButtonStories.Default} />

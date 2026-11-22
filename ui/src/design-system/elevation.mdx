@@ -1,0 +1,17 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as FloatingAlertStories from "../components/floating-alert.stories";
+
+<Meta title="基本デザイン/影" />
+
+# 影
+
+影は、ほかの要素の上に重ねて表示し、画面の並びから浮いているものに付けます。影の大きさは `shadow-md` の 1 種類です。
+
+| 影を付けるもの | 影を付けないもの |
+|---|---|
+| トースト、浮かせて重ねるアラート（`FloatingAlert`、ダイアログの失敗のアラート） | カード、テーブル、ボタン、入力欄、ダイアログ、メニュー |
+
+- カードやテーブルは、枠線と背景色で区切りを示す。
+- ダイアログは影を付けず、後ろの画面をオーバーレイ（`--overlay`）で覆って区別する。
+
+<Canvas of={FloatingAlertStories.Default} />

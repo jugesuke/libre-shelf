@@ -1,0 +1,36 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as BadgeStories from "./badge.stories";
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+バッジは、状態や分類を短く示すラベルです。クリックする操作には使いません。
+
+<Canvas of={BadgeStories.All} />
+
+## 種類と使い分け
+
+種類は success、warning、info、gray の 4 つです。どの状態や分類にどの種類を使うかは、次のとおりです。新しい状態や分類を追加するときは、ここに書き足します。
+
+| 対象 | gray | info | warning | success |
+|---|---|---|---|---|
+| ロケーションの種類 | 倉庫 | 委託書店 | 即売会会場 | — |
+| 在庫移動の種別 | 献本、納本、廃棄、棚卸調整 | 移動 | 販売 | 入荷 |
+
+## チェックリスト
+
+- [ ] 上の表のとおりの種類を使っている。
+- [ ] クリックで何かを起こす用途に使っていない。
+
+## 実装
+
+- 種類は `variant` で指定する。省略すると `gray`。
+
+### 寸法と色
+
+- 高さ 20px、左右の内側の余白 8px、12px の文字、`rounded-full`
+- success、warning、info の背景は `--success-muted`、`--warning-muted`、`--info-muted`、文字は `--success`、`--warning`、`--info`。
+- gray の背景は `--muted`、文字は `--muted-foreground`。
+
+<Controls of={BadgeStories.Default} />

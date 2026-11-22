@@ -1,0 +1,63 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as FieldStories from "./field.stories";
+
+<Meta of={FieldStories} />
+
+# Field
+
+フィールドは、入力欄にラベルとエラーの理由を付けて、1 つの項目にまとめるコンポーネントです。入力欄は、文字や数を入力するテキストボックス（`Input`）、選択肢から選ぶセレクトボックス（`Select`）、複数行のテキストエリア（`Textarea`）の 3 つです。
+
+<Canvas of={FieldStories.All} />
+
+## デザイン
+
+- テキストボックス、セレクトボックス、テキストエリアは同じデザインにする。高さは 36px（テキストエリアは 64px 以上）。
+- ラベルは入力欄の上に置く。
+- 必須の項目はラベルの右に「必須」ラベルを付ける。
+
+## 状態
+
+| 状態 | デザイン |
+|---|---|
+| フォーカス時 | プライマリカラー（黄は黒）の 2px のフォーカスリング |
+| エラー | 枠線を destructive にし、入力欄の下に理由を書く |
+| 無効状態 | 背景色をグレーにする |
+
+<Canvas of={FieldStories.WithError} />
+
+金額の欄は欄の左に「¥」を、冊数の欄は欄の右に「冊」を置きます。
+
+<Canvas of={FieldStories.WithYen} />
+
+<Canvas of={FieldStories.WithCount} />
+
+## アクセシビリティ
+
+- ラベルは入力欄と関連付け、クリックすると入力欄にフォーカスが移る。
+- エラーのときは、入力欄が不正な値であることと、理由の文を、スクリーンリーダーに伝える。
+
+## チェックリスト
+
+- [ ] すべての入力欄にラベルがある。
+- [ ] エラーの理由に、どう直せばよいかが書いてある。
+
+## 実装
+
+- 入力欄は `Input`、`Select`、`Textarea`。HTML の要素と同じ属性を受け取る。
+- `Field` で入力欄を包み、`label` にラベル、`required` に必須か、`error` にエラーの理由を渡す。`Field` がラベルと入力欄、エラーの理由を関連付ける
+- 切り替えと入力欄とボタンのように、いくつかの要素を組み合わせた欄を包むときは、`controlId` にラベルを関連付ける入力欄の `id` を指定する。このときエラーの理由の `id` は `describedById` として使う側に渡る。
+- 金額の欄は `Input` の左に「¥」を、冊数の欄は右に「冊」を文字で並べ、`controlId` でラベルを欄につなぐ。
+- `Field` の外に入力欄だけを置くとき（テーブルの中の数を入れる欄など）は、`aria-label` で何の欄かを示す。
+- `required` は「必須」ラベルを出すだけで、入力欄の HTML の `required` 属性は付けない。
+
+### 寸法と色
+
+- 入力欄は 1px の `--input` の枠線、白い背景、14px の `--foreground` の文字。左右の内側の余白は 12px（テキストエリアは上下も 8px）。
+- フォーカス時は、マウスで選んだときも 2px の `--ring` のリングを外側に 2px 離して出す（`:focus`）。
+- エラーのときは枠線を `--destructive` にし、入力欄の下に 12px の `--destructive-muted-foreground` で理由を書く。`aria-invalid` を付け、理由と `aria-describedby` で関連付ける。
+- 無効状態は `--muted` の背景と `--placeholder` の文字。枠線は `--input` のまま。
+- ラベルは 14px の太字。ラベルと入力欄の間は 4px、入力欄とエラーの理由の間は 4px。
+- 「必須」ラベルはラベルの右に 8px 空けて置く。高さ 20px、左右の余白 8px、12px の文字、`--destructive-muted` の背景に `--destructive-muted-foreground` の文字、`rounded-full`。
+- セレクトボックスの右端の矢印はブラウザの既定のまま。テキストエリアは縦にだけ大きさを変えられる。
+
+<Controls of={FieldStories.Default} />

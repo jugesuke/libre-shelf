@@ -1,0 +1,56 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { TokenTable } from "./blocks/color-table";
+
+<Meta title="開発/色の変数" />
+
+# 色の変数
+
+[色](?path=/docs/基本デザイン-色--docs)のページの色は、`ui/src/theme.css` の `:root` に CSS 変数として定義しています。コンポーネントと画面では、この変数を通して色を指定します。
+
+## 指定方法
+
+- 変数の名前は、色のページの名前の前に `--` を付けたもの。Tailwind のクラスでは、`bg-`、`text-`、`border-` などのあとにその名前を付ける（`foreground` なら `text-foreground`）。
+- Tailwind の標準の色（`bg-rose-500`、`text-gray-600` など）は使わない。色を変えるときに、変数を 1 か所直せば済むようにするため。
+- グレーの段階の変数（`--gray-900` など）は、用途ごとの変数の定義に使い、コンポーネントや画面では用途ごとの変数を使う。
+- 新しい色が必要なときは、変数を追加してから使い、色のページの表にも追加する。
+
+## プライマリカラー
+
+プライマリカラーは、次の 3 つの変数で渡します。
+
+| 変数 | 内容 |
+|---|---|
+| `--primary` | プライマリカラー |
+| `--primary-foreground` | プライマリカラーの上に置く文字の色 |
+| `--ring` | フォーカスリングと、タブの選択中の項目の下線の色 |
+
+値は `ui/src/palette.ts` の色の一覧から、どの画面にどの色を使うかをアプリが選び、`Frame` が `html` 要素に設定します。ダイアログのように `body` の直下に描画するコンポーネントにも届くよう、`html` 要素に設定しています。コンポーネントは画面の名前を知らずに、この 3 つの変数を参照します。
+
+Storybook では、ツールバーの「色」で選んだ色の値を、同じように `html` 要素に設定します。
+
+## 変数の一覧
+
+<TokenTable
+  rows={[
+    { name: "--destructive", usage: "destructive" },
+    { name: "--destructive-muted", usage: "destructive のアラートの背景色" },
+    { name: "--destructive-muted-foreground", usage: "destructive のアラートの文字、必須ラベル" },
+    { name: "--success", usage: "成功" },
+    { name: "--success-muted", usage: "成功のアラートの背景色" },
+    { name: "--warning", usage: "警告" },
+    { name: "--warning-muted", usage: "警告のアラートの背景色" },
+    { name: "--info", usage: "情報" },
+    { name: "--info-muted", usage: "情報のアラートの背景色" },
+    { name: "--foreground", usage: "本文" },
+    { name: "--muted-foreground", usage: "補足のテキスト" },
+    { name: "--placeholder", usage: "プレースホルダー" },
+    { name: "--input", usage: "入力欄の枠線" },
+    { name: "--disabled-foreground", usage: "無効状態の文字" },
+    { name: "--border", usage: "枠線" },
+    { name: "--border-muted", usage: "区切り線" },
+    { name: "--secondary", usage: "secondary のボタンの背景色" },
+    { name: "--muted", usage: "ホバー時の背景色" },
+    { name: "--surface-muted", usage: "ヘッダーの背景色" },
+    { name: "--overlay", usage: "ダイアログのオーバーレイ" },
+  ]}
+/>

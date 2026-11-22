@@ -1,0 +1,83 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { Button } from "../components/button";
+import { Tabs } from "../components/tabs";
+import { PaletteTable, TokenTable } from "./blocks/color-table";
+
+<Meta title="基本デザイン/色" />
+
+# 色
+
+Shelf で使う色はプライマリカラー、セマンティックカラー、グレーの 3 種類です。この 3 種類にない色は使いません。
+
+## プライマリカラー
+
+プライマリカラー（`--primary`）は、その画面の主要な操作に使う色です。値は画面ごとに変え、いまどの画面にいるかの目印にもします。プライマリカラーは次の色の一覧から選び、どの画面にどの色を使うかは、アプリが決めます。
+
+<PaletteTable />
+
+使用箇所は次のとおりです。
+
+- メニューで選択中の項目と、画面上端の帯
+- primary のボタンの背景色
+- セグメントコントロールの選択中の項目の背景色と、タブの選択中の項目の下線
+- 白い背景に置く大きな数字（即売会のレジの合計金額など）。黄は白い背景とのコントラストが低いので、文字には使わない。
+
+上記以外にはプライマリカラーを使いません。ほかの箇所にも使うと、目印として目立たなくなるためです。
+
+### 黄のタブの下線とフォーカスリング
+
+黄では、タブの選択中の項目の下線と、フォーカスリングを黒にしています。選択状態のインジケーターとフォーカスリングは、白い背景とのコントラスト比が 3:1 以上必要ですが、黄は 1.57:1 しかないためです。
+
+<div className="not-prose mt-3 flex flex-wrap items-center gap-8 rounded-md border border-border p-6" style={{ "--primary": "#fdc700", "--primary-foreground": "#101828", "--ring": "#101828" }}>
+  <Tabs options={[{ value: "list", label: "一覧から選択" }, { value: "new", label: "新規入力" }]} value="list" onChange={() => {}} />
+  <Button variant="primary">保存</Button>
+</div>
+
+## セマンティックカラー
+
+<TokenTable
+  rows={[
+    { name: "--destructive", usage: "削除などの取り消せない操作、エラー" },
+    { name: "--success", usage: "成功" },
+    { name: "--warning", usage: "警告" },
+    { name: "--info", usage: "情報、次の操作の案内" },
+  ]}
+/>
+
+アラートはセマンティックカラーを薄くした背景色に、同じセマンティックカラーの文字を置きます。ただし destructive のアラートの文字は、`--destructive`（#e7000b）より濃い `--destructive-muted-foreground`（#c10007）にします。`--destructive` では、薄くした背景色とのコントラスト比が 4.36:1 で、4.5:1 に届かないためです。destructive のボタンでの使い方は、[ボタン](?path=/docs/ui-button--docs)のページにあります。
+
+## グレー
+
+グレーは次の 8 段階を使います。
+
+<TokenTable
+  rows={[
+    { name: "--gray-900", usage: "foreground" },
+    { name: "--gray-600", usage: "muted-foreground" },
+    { name: "--gray-500", usage: "placeholder、input" },
+    { name: "--gray-400", usage: "disabled-foreground" },
+    { name: "--gray-300", usage: "border" },
+    { name: "--gray-200", usage: "border-muted、secondary" },
+    { name: "--gray-100", usage: "muted" },
+    { name: "--gray-50", usage: "surface-muted" },
+  ]}
+/>
+
+用途ごとの名前はどれかの段階を指します。
+
+<TokenTable
+  rows={[
+    { name: "--foreground", usage: "本文、見出し" },
+    { name: "--muted-foreground", usage: "補足のテキスト、テーブルの見出し、text のボタン" },
+    { name: "--placeholder", usage: "入力欄のプレースホルダー" },
+    { name: "--input", usage: "入力欄とセグメントコントロールの枠線" },
+    { name: "--disabled-foreground", usage: "無効状態のボタンの文字" },
+    { name: "--border", usage: "カードとテーブルの枠線" },
+    { name: "--border-muted", usage: "テーブルの行の区切り線" },
+    { name: "--secondary", usage: "secondary のボタンの背景色" },
+    { name: "--muted", usage: "ホバー時の背景色、グレーのバッジ" },
+    { name: "--surface-muted", usage: "テーブルのヘッダー行、カードのヘッダー、無効状態の secondary のボタンの背景色" },
+  ]}
+/>
+
+文字と入力欄の枠線には、白とのコントラスト比が 4.5:1 以上のグレー（gray-500 以上の濃さ）を使います。それより薄いグレーは、区切り線のように見分けに必要ない箇所と、無効状態の文字（`--disabled-foreground`）に使います。無効状態のコンポーネントは、コントラストの基準の対象にならないためです（[原則](?path=/docs/原則--docs)）。

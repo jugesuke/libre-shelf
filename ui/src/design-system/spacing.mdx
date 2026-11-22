@@ -1,0 +1,27 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="基本デザイン/余白" />
+
+# 余白
+
+余白は、4px を単位とする次の 6 段階を使います。
+
+<div className="not-prose flex flex-col gap-2">
+  {[4, 8, 12, 16, 24, 32].map((px) => (
+    <div key={px} className="flex items-center gap-3 text-sm">
+      <span className="w-12 text-right">{px}px</span>
+      <span className="h-4 bg-info" style={{ width: px }} />
+    </div>
+  ))}
+</div>
+
+## 用途ごとの余白
+
+| 用途 | 使う値 |
+|---|---|
+| コンポーネントの内側（ボタンや入力欄の内側、アイコンと文字の間） | 4px、8px、12px |
+| 関係の近い要素の間（ラベルと入力欄、同じセクションの中の行） | 8px、12px、16px |
+| セクションとセクションの間、カードの内側 | 16px、24px |
+| ページの外側 | 画面幅が 768px 未満で 12px、768px 以上で 24px |
+
+関係の近い要素ほど狭く、遠い要素ほど広く空けます。

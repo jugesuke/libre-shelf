@@ -1,0 +1,51 @@
+name: test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter @shelf/ui typecheck
+
+      - run: pnpm --filter @shelf/texts typecheck
+
+      - run: pnpm --filter @shelf/texts test
+
+      - run: pnpm --filter libre-shelf typecheck
+
+      - run: pnpm --filter libre-shelf test
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: package.json
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm --filter libre-shelf exec playwright install --with-deps chromium
+
+      - run: pnpm --filter libre-shelf build
+
+      - run: pnpm --filter libre-shelf test:e2e

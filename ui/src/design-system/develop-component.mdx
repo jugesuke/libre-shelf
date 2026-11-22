@@ -1,0 +1,67 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="開発/コンポーネントの作り方" />
+
+# コンポーネントの作り方
+
+`ui/src/components/` のコンポーネントを作るときと直すときのルールです。
+
+## ファイル
+
+- 1 コンポーネント 1 ファイルにする。種類は class-variance-authority（`cva`）で切り替え、`className` を `cn` で上書きできるようにする。
+- 名前を付けて export する。default の export にしない。
+- shadcn/ui のコンポーネントをコピーして使うか、自分で書くかは、手間の少ない方を選ぶ。
+- プライマリカラーはコンポーネントに画面の名前を渡さず、`--primary` などの変数から読む（[色の変数](?path=/docs/開発-色の変数--docs)）。
+- 基本デザインで決めていない値（コンポーネントの高さ、ダイアログの幅、線の太さなど）は、コンポーネントごとのページの「寸法と色」に書く。
+
+## 状態の作り方
+
+| 状態 | 作り方 |
+|---|---|
+| ホバー時、押している間 | 塗ったもの（primary と secondary のボタン、セグメントコントロールの選択中の項目）は、ホバー時に `brightness(0.92)`、押している間に `brightness(0.85)`。塗らないもの（text のボタン、セグメントコントロールのほかの項目、タブ）は `--muted` の背景、destructive のボタンは `--destructive-muted` の背景を敷く |
+| フォーカス時 | キーボードで選べる要素（折りたためるカードの開閉のボタン、クリックできるテーブルの行を含む）は、2px の `--ring` のリングを外側に 2px 離して出す（`:focus-visible`）。入力欄は、マウスで選んだときも出す（`:focus`） |
+| 無効状態 | HTML の `disabled` 属性で表す。受け取るのはボタンと入力欄（`Input`、`Select`、`Textarea`）だけ。カードは `inert` を使う |
+
+## Storybook
+
+コンポーネントごとに、同じ場所に `<ファイル名>.stories.tsx` を置きます（`table.tsx` なら `table.stories.tsx`）。title は `UI/<主なコンポーネントの名前>` にします。サイドバーの並びは `.storybook/preview.ts` の `storySort` で決めています。画面の枠（Frame、Page、Card）、操作（Button）、入力（Field、Input、Select、Textarea、SegmentedControl、Tabs）、表示（Table、Badge）、フィードバック（Alert、Toast）、重ねて出すもの（Dialog、ConfirmDialog）の順です。コンポーネントを足したら、この並びのどこかに入れます。
+
+### story の並び
+
+1. `Default`: 受け取った args をそのままコンポーネントに渡し、操作パネル（Controls）で props を試せるようにする
+2. 種類（`variant` など）と、props で表せる状態（無効状態など）ごとに 1 つずつ。
+3. `All`: 種類と状態を 1 画面に並べる。並べる種類や状態がないもの（セグメントコントロール、タブ）と、同時に並べられないもの（ダイアログ）には置かない
+
+ホバー時やフォーカス時の見た目は、story に分けず、Storybook の上で操作して見ます。
+
+### args の書き方
+
+- props は args で渡し、操作パネルで変えると表示が変わるようにする。ボタン、バッジ、アラートの中身は、文字で args に渡す。
+- 組み立てないと表示できないとき（開くためのボタンが要るダイアログ、`TableRow` などを組み立てるテーブルなど）だけ `render` を使い、そのときも受け取った args を渡す。
+- 値が決まっている props（`variant`、`size`、`width` など）は、`argTypes` で選択肢にする。
+- JSX を受け取る props（`children`、`actions`、`footer` など）は、`argTypes` で `control: false` にし、`description` に何を渡すかと例を書く。
+- `on` で始まる関数の props は、`storybook/test` の `fn()` を渡し、操作の記録（Actions）に出す。
+- 使う画面が状態を持つもの（セグメントコントロール、タブ、ダイアログ、折りたためるカード）は、`storybook/preview-api` の `useArgs` で、操作したときに args を書き換える。
+
+### 説明ページ
+
+- 説明ページを書くコンポーネントは、`<ファイル名>.mdx` を置き、stories に `tags: ["!autodocs"]` を付ける。最後に「実装」の節と `<Controls>` を置く。
+- 説明ページの見出しは、サイドバーと同じコンポーネントの名前（`Dialog` など）にする。最初の文は日本語の呼び名を主語にする（「ダイアログは、〜コンポーネントです。」）。
+- props には jsdoc を書く。説明ページの操作パネルに出る。
+- プライマリカラーはツールバーの「画面」で切り替える。story ごとに色を書かない。
+- ダイアログを表示する story は、説明ページでは iframe の中に表示する（`parameters: { docs: { story: { inline: false, height: "520px" } } }`）。説明ページ全体をダイアログが覆わないようにするため。
+
+## 画面の機能に結びついたコンポーネント
+
+商品を選ぶ欄（`ItemInput`、`src/common/item/item-input.tsx`）と、カメラでバーコードを読むボタンとダイアログ（`CameraButton`、`src/common/barcode/camera-modal.tsx`）は、いくつかの画面で共有していますが、画面の機能に結びついているので `ui/src/components/` には置きません。見た目は次のコンポーネントで作ります。
+
+- 「バーコード / 直接入力」と「一覧から選択」の切り替えはセグメントコントロール、欄は `Input` と `Select`。
+- 欄の横の「追加」と「カメラ」は secondary のボタン。
+- カメラのダイアログはダイアログのデザイン（オーバーレイ、角丸、見出し、右上の閉じるボタン）に合わせる。ただしオーバーレイを押しても閉じないので、`Dialog` は使わない。映像の枠と読み取りの線、動きは `docs/spec/バーコードのカメラ読み取り.md` のとおり。
+
+## 確認方法
+
+- 種類と状態が説明ページのとおりに表示されるかを、Storybook で見る。
+- 動作（切り替えで選択中の項目が変わる、無効状態のボタンを押しても何も起きない、ダイアログが Esc キーで閉じるなど）は、Playwright で Storybook のビルドを開いて確認する。テストは `ui/e2e/` に置き、設定は `ui/playwright.config.ts` を使う。
+- 画面に組み込んだあとは、`e2e/inventory.spec.ts` で全画面を撮り、変える前と後を見比べて、はみ出し、重なり、文字の欠け、1 文字ずつの折り返しがないかを確認する。
+- 色の組を変えたら、WCAG 2.2 の相対輝度の式でコントラスト比を計算し、[原則](?path=/docs/原則--docs)の「誰にでも読める色と大きさにする」の基準を満たすかを確認する。

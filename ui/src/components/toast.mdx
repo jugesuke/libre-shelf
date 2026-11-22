@@ -1,0 +1,37 @@
+import { Canvas, Meta } from "@storybook/addon-docs/blocks";
+import * as ToastStories from "./toast.stories";
+
+<Meta of={ToastStories} />
+
+# Toast
+
+トーストは、操作が成功したことを、画面の上部の中央に一時的に表示するコンポーネントです。成功が画面の変化で分からないときだけ使います。いつ使うかは、[フィードバック](?path=/docs/デザインパターン-フィードバック--docs)のパターンに従います。
+
+<Canvas of={ToastStories.Default} />
+
+## デザイン
+
+- success の[アラート](?path=/docs/ui-alert--docs)と同じ色で表示し、閉じるボタンを付ける。
+- 表示するときと消すときは、アニメーションを付ける。
+- 5 秒で消える。ポインターを重ねている間は消えない。
+- 続けて出したときは重ねて表示し、ポインターを重ねると広げて全部を見せる。
+
+## アクセシビリティ
+
+- 出たときにスクリーンリーダーで読み上げる。フォーカスは移さない。
+
+## チェックリスト
+
+- [ ] 成功が画面の変化で分からないときだけ使っている。
+- [ ] 文言が文で、最後に句点（。）がある。
+
+## 実装
+
+- アプリの根元を `ToastProvider` で包み、画面では `useToast().showToast(文言)` で出す。
+- 中身は [sonner](https://sonner.emilkowal.ski/)。shadcn/ui の Sonner の部品と同じく、`Toaster` を 1 つ置き、`toast` で出す。sonner の既定の見た目は使わず、`toast.custom` でアラートと閉じるボタンを表示する。
+- 重ね方、アニメーション、読み上げ（`aria-live`）は sonner が行う。
+
+### 寸法と色
+
+- 画面の上部の中央。幅は sonner の並びの幅（356px）。
+- アラートの success の色に、影（`shadow-md`）を付ける。

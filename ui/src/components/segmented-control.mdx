@@ -1,0 +1,38 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as SegmentedControlStories from "./segmented-control.stories";
+
+<Meta of={SegmentedControlStories} />
+
+# SegmentedControl
+
+セグメントコントロールは、2〜3 個の選択肢から 1 つを選び、その場で表示や入力方法を切り替えるコンポーネントです。「バーコード / 直接入力」と「一覧から選択」の切り替えなどに使います。
+
+<Canvas of={SegmentedControlStories.Default} />
+
+## 用途
+
+- 同じ場所の入力方法や表示を切り替えるときに使う。
+- 切り替えると内容のまとまりごと入れ替わるときは、[タブ](?path=/docs/ui-tabs--docs)を使う。
+
+## デザイン
+
+- 選択中の項目はプライマリカラーで塗りつぶし、ほかの項目は白い背景にする。
+- 幅は中身に合わせ、横幅いっぱいには伸ばさない。
+- 高さは 32px
+- 項目ごとに無効状態にはしない。
+
+## アクセシビリティ
+
+- 各項目はボタンで、選択中の項目に `aria-pressed="true"` を付ける。
+
+## 実装
+
+- `options` に値と表示の文字の組、`value` に選択中の値、`onChange` に選んだ値を受け取る関数を渡す。[タブ](?path=/docs/ui-tabs--docs)と同じ形
+
+### 寸法と色
+
+- 項目を `--input` の 1px の枠線でつないで横に並べる。14px の文字、左右の内側の余白は 12px。
+- 選択中の項目は `--primary` の背景に `--primary-foreground` の太字。ほかの項目は白い背景に `--foreground` の文字。
+- ホバー時は、選択中の項目が `brightness(0.92)`、ほかの項目は `--muted` の背景。
+
+<Controls of={SegmentedControlStories.Default} />

@@ -1,0 +1,44 @@
+import { Canvas, Controls, Meta } from "@storybook/addon-docs/blocks";
+import * as ConfirmDialogStories from "./confirm-dialog.stories";
+
+<Meta of={ConfirmDialogStories} />
+
+# ConfirmDialog
+
+確認ダイアログは、元に戻せない操作の前に、本当に実行してよいかを確認する[ダイアログ](?path=/docs/ui-dialog--docs)です。見出し、本文、対象、注意事項、ボタンの書き方は、[確認](?path=/docs/デザインパターン-確認--docs)のパターンに従います。
+
+<Canvas of={ConfirmDialogStories.Default} />
+
+## 注意事項
+
+操作で失われるものがあるときは、警告のアラートで書きます。
+
+<Canvas of={ConfirmDialogStories.WithWarning} />
+
+## 強い確認
+
+まとまった記録が失われる操作では、操作の名前を入力するまで確定のボタンを押せないようにします。入力させる言葉は、見出しの操作と同じにします（「セッションの破棄」なら「破棄」、「発注の削除」なら「削除」）。下の例はセッションの破棄です。
+
+<Canvas of={ConfirmDialogStories.RequireTyping} />
+
+## 処理中と失敗
+
+確定のボタンを押してから処理が終わるまで、確定のボタンを処理中にします。失敗したら、ダイアログを開いたまま、下部のボタンのすぐ下に失敗のアラートを浮かせて出します（[ダイアログ](?path=/docs/ui-dialog--docs)の `failure`）。
+
+<Canvas of={ConfirmDialogStories.Pending} />
+
+<Canvas of={ConfirmDialogStories.WithError} />
+
+## チェックリスト
+
+- [ ] 確定のボタンの言葉が、実際に起きること（「削除」「破棄する」など）になっている。
+- [ ] 強い確認で入力させる言葉が、見出しの操作と同じになっている。
+
+## 実装
+
+- `title` に見出し、`message` に本文、`target` に対象の項目名と値の組、`warning` に注意事項、`confirmLabel` に確定のボタンの言葉を渡す。確定のボタンは destructive になる。
+- 強い確認は `requireTyping` に入力させる言葉を渡す。入力欄の名前は「確認のため「\{言葉\}」と入力してください」になる。閉じると入力は空に戻る。
+- `onConfirm` が Promise を返す間、確定のボタンを処理中にする。閉じるのは使う側で、成功したら `onOpenChange(false)` を呼び、失敗したら `error` にアラートの文言を渡す。`error` は Dialog の `failure` に渡す。アラートの閉じるボタンか Esc キーで閉じたら、`onErrorClose` を呼ぶ。
+- 最初のフォーカスは「やめる」に置く。
+
+<Controls />

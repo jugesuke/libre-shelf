@@ -26,3 +26,9 @@ pnpm test:e2e   # 画面をブラウザで開くテストを実行する（先�
 ```
 
 デザインシステムは、`ui/` で `pnpm storybook` を実行すると、Storybook で見られます。
+
+## ライセンス
+
+Libre Shelfは、原則として[MIT License](LICENSE)の下で公開されています。
+
+ただし、ロゴ・アイコンおよびその生成に関連するソースコードにはMIT Licenseは適用されず、別途[LICENSE-ASSETS](LICENSE-ASSETS)に定める利用条件が適用されます。

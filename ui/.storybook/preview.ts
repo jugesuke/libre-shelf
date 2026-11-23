@@ -70,7 +70,7 @@ const preview: Preview = {
       components: docsComponents,
     },
     // UI は、画面の枠、まとまり、操作、入力、表示、フィードバック、重ねて出すものの順に並べる
-    options: { storySort: { order: ["はじめに", "コンセプト", "原則", "基本デザイン", ["色", "タイポグラフィ", "余白", "角丸", "影", "アニメーション", "ターゲットサイズ", "レイアウト", "文言と書式"], "UI", ["Frame", "Page", "Card", "Button", "Field", "Input", "Select", "Textarea", "SegmentedControl", "Tabs", "Table", "Badge", "Alert", "Toast", "Dialog", "ConfirmDialog"], "デザインパターン", ["フィードバック", "確認", "読み込み中と処理中", "何もないとき"], "開発", ["コンポーネントの作り方", "スタイルの指定", "色の変数"], "参考文献"] } },
+    options: { storySort: { order: ["はじめに", "コンセプト", "原則", "基本デザイン", ["色", "タイポグラフィ", "リンク", "余白", "角丸", "影", "アニメーション", "ターゲットサイズ", "レイアウト", "文言と書式"], "UI", ["Frame", "Page", "Card", "Button", "TextLink", "Field", "Input", "Select", "Textarea", "SegmentedControl", "Tabs", "Table", "Badge", "Alert", "Toast", "Dialog", "ConfirmDialog"], "デザインパターン", ["フィードバック", "確認", "読み込み中と処理中", "何もないとき"], "開発", ["コンポーネントの作り方", "スタイルの指定", "色の変数"], "参考文献"] } },
   },
   initialGlobals: { color: "red" },
   globalTypes: {

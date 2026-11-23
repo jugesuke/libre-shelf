@@ -18,7 +18,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 | 状態 | 作り方 |
 |---|---|
-| ホバー時、押している間 | 塗ったもの（primary と secondary のボタン、セグメントコントロールの選択中の項目）は、ホバー時に `brightness(0.92)`、押している間に `brightness(0.85)`。塗らないもの（text のボタン、セグメントコントロールのほかの項目、タブ）は `--muted` の背景、destructive のボタンは `--destructive-muted` の背景を敷く |
+| ホバー時、押している間 | 塗ったもの（primary と secondary のボタン、セグメントコントロールの選択中の項目）は、ホバー時に `brightness(0.92)`、押している間に `brightness(0.85)`。text のボタン、セグメントコントロールのほかの項目、タブは `--muted` の背景、destructive のボタンは `--destructive-muted` の背景を敷く。テキストリンクは背景を付けず、明るさと下線で状態を示す（[TextLink](?path=/docs/ui-textlink--docs)） |
 | フォーカス時 | キーボードで選べる要素（折りたためるカードの開閉のボタン、クリックできるテーブルの行を含む）は、2px の `--ring` のリングを外側に 2px 離して出す（`:focus-visible`）。入力欄は、マウスで選んだときも出す（`:focus`） |
 | 無効状態 | HTML の `disabled` 属性で表す。受け取るのはボタンと入力欄（`Input`、`Select`、`Textarea`）だけ。カードは `inert` を使う |
 

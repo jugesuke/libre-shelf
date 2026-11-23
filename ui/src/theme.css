@@ -43,6 +43,8 @@
   --color-warning-muted: var(--warning-muted);
   --color-info: var(--info);
   --color-info-muted: var(--info-muted);
+  --color-link: var(--link);
+  --color-link-visited: var(--link-visited);
   --color-ring: var(--ring);
   --color-overlay: var(--overlay);
   --color-chart-1: var(--chart-1);
@@ -82,6 +84,8 @@
   --warning-muted: #fffbeb;
   --info: #155dfc;
   --info-muted: #eff6ff;
+  --link: #155dfc;
+  --link-visited: #7e22ce;
   --background: #ffffff;
   --foreground: var(--gray-900);
   --card: #ffffff;

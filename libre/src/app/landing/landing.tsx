@@ -5,6 +5,7 @@ import { Alert } from "@shelf/ui/components/alert";
 import { Button } from "@shelf/ui/components/button";
 import { Card } from "@shelf/ui/components/card";
 import { Page } from "@shelf/ui/components/page";
+import { TextLink } from "@shelf/ui/components/text-link";
 
 const FEATURES = [
   {
@@ -101,7 +102,7 @@ function StartButtons() {
  */
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground [--ring:var(--foreground)]">
       <div className="flex h-14 items-center bg-(--gray-900) px-3 text-white">
         <img src="/icon.svg" alt="" className="h-9 w-9" />
         <span className="ml-2 text-lg font-bold">Libre Shelf</span>
@@ -136,7 +137,7 @@ export default function LandingPage() {
             <section className="flex flex-col gap-3">
               <h2 className="text-lg font-bold">データの置き場所</h2>
               <p className="text-sm">
-                アカウントは要りません。記録は、いま使っているこの端末の中に残ります。どこにも送らないので、会場で電波が届かなくても使えます。インターネットを使うのは、ISDNから商品を登録するときだけです。
+                アカウントは必要ありません。記録は、いま使っているこの端末の中に残ります。どこにも送らないので、会場で電波が届かなくても使えます。事前に開いておくだけで、基本的にオフラインで使えます。インターネットを使うのは、ISDNから商品を登録するときだけです。
               </p>
               <Alert variant="warning">
                 ブラウザのサイトのデータを消すと、記録も消えます。残したい記録は「ファイルに書き出す」で保存しておいてください。
@@ -145,6 +146,25 @@ export default function LandingPage() {
             <section className="flex flex-col gap-3">
               <p className="text-sm">さっそく使ってみましょう。</p>
               <StartButtons />
+            </section>
+            <section className="flex flex-col gap-3">
+              <h2 className="text-lg font-bold">このソフトウェアについて</h2>
+              <p className="text-sm">
+                Libre Shelfは、
+                <TextLink href="https://x.com/jugesuke" target="_blank">
+                  Jugesuke
+                </TextLink>
+                が
+                <TextLink href="https://books.jugesuke.net/" target="_blank">
+                  自分のサークル
+                </TextLink>
+                用に運用しているシステム「Shelf」のオープンソース版です。
+                ソースコードは
+                <TextLink href="https://github.com/jugesuke/libre-shelf" target="_blank">
+                  juegsuke/libre-shelf (GitHub)
+                </TextLink>
+                で公開しています。
+              </p>
             </section>
           </div>
         </Page>

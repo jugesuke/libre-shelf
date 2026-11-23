@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { boxesOf } from "./feedback-helpers";
 import { failLocalStorageWrites, readLocalStorage, seedHistory, sessionFixture } from "./local-data";
 
 // 結果画面の見出しの右に並べるボタンの間は、ほかの画面でボタンを横に並べるときと同じく 12px 空ける
@@ -12,10 +13,12 @@ test("結果画面: 「一覧に戻る」と「ファイルに書き出す」の
   );
   await page.goto("/event/result/record-1");
 
-  const back = await page.getByRole("button", { name: "一覧に戻る" }).boundingBox();
-  const exportButton = await page
-    .getByRole("button", { name: "ファイルに書き出す" })
-    .boundingBox();
+  const backButton = page.getByRole("button", { name: "一覧に戻る" });
+  await expect(backButton).toBeVisible();
+  const [back, exportButton] = await boxesOf([
+    backButton,
+    page.getByRole("button", { name: "ファイルに書き出す" }),
+  ]);
   expect(exportButton!.x - (back!.x + back!.width)).toBeCloseTo(12, 0);
 });
 
@@ -25,8 +28,12 @@ test("結果画面: 見出しの右に「一覧に戻る」「ファイルに書
   await seedHistory(page, "record-1", sessionFixture({ phase: "done", settled: true }));
   await page.goto("/event/result/record-1");
 
-  const exportButton = await page.getByRole("button", { name: "ファイルに書き出す" }).boundingBox();
-  const del = await page.getByRole("button", { name: "削除", exact: true }).boundingBox();
+  const exportLocator = page.getByRole("button", { name: "ファイルに書き出す" });
+  await expect(exportLocator).toBeVisible();
+  const [exportButton, del] = await boxesOf([
+    exportLocator,
+    page.getByRole("button", { name: "削除", exact: true }),
+  ]);
   expect(del!.x - (exportButton!.x + exportButton!.width)).toBeCloseTo(12, 0);
 });
 
